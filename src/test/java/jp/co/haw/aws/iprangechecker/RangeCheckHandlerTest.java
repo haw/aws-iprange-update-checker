@@ -10,6 +10,7 @@ public class RangeCheckHandlerTest {
 
   @Test
   public void test() {
-
+    RangeCheckHandler handler = new RangeCheckHandler();
+    handler.handleRequest(1, null);
   }
 }
