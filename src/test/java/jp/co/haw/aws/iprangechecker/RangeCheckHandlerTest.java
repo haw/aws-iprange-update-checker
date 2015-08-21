@@ -9,7 +9,7 @@ import org.junit.Test;
 public class RangeCheckHandlerTest {
 
   @Test
-  public void test() {
+  public void test() throws Exception{
     RangeCheckHandler handler = new RangeCheckHandler();
     handler.handleRequest(1, null);
   }

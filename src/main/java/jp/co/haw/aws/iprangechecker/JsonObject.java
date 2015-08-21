@@ -1,6 +1,7 @@
 package jp.co.haw.aws.iprangechecker;
 
-import com.google.api.client.util.Key;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -10,23 +11,18 @@ import java.util.List;
  */
 public class JsonObject {
 
-  @Key
   public String syncToken;
 
-  @Key
   public String createDate;
 
-  @Key("prefixes")
   public List<Prefix> prefixes;
 
   public static class Prefix{
-    @Key("ip_prefix")
+    @JsonProperty("ip_prefix")
     public String ipPrefix;
 
-    @Key
     public String region;
 
-    @Key
     public String service;
   }
 }
