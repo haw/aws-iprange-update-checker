@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -15,7 +14,7 @@ public class RangeCheckHandler {
 
   private static final String IP_RANGE_URL = "https://ip-ranges.amazonaws.com/ip-ranges.json";
 
-  public String handleRequest(int count, Context context) throws IOException, URISyntaxException {
+  public String handleRequest(int count, Context context) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     JsonObject json = mapper.readValue(new URL(IP_RANGE_URL), JsonObject.class);
     return "";
