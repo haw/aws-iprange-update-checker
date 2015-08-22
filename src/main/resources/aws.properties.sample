@@ -1,1 +1,6 @@
-s3.region = ap
+s3.endpoint = <s3 endpoint. ex, s3-ap-northeast-1.amazonaws.com>
+s3.bucketname = <s3 bucket name>
+sns.region = <sns region>
+sns.topic.arn = <sns topic arn for notification ip range changed>
+access.key = <optional, if not specified, use IAM Role>
+secret.key = <optional, if not specified, use IAM Role>
