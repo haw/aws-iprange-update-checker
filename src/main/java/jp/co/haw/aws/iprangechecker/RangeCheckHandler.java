@@ -6,7 +6,6 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -34,9 +33,9 @@ public class RangeCheckHandler {
   private static final String S3_BUCKETNAME_KEY = "s3.bucketname";
   private static final String SNS_SUBJECT = "AWS IP range updated.";
 
-  public void handleRequest(S3Event event, Context context) throws IOException {
+  public void handleRequest(Context context) throws IOException {
     LambdaLogger logger = context.getLogger();
-    logger.log("handleRequest start. event = " + event.toJson());
+    logger.log("handleRequest start.");
     ObjectMapper mapper = new ObjectMapper();
     JsonObject json = mapper.readValue(new URL(IP_RANGE_URL), JsonObject.class);
 
