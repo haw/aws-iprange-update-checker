@@ -5,6 +5,8 @@ import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
@@ -32,7 +34,9 @@ public class RangeCheckHandler {
   private static final String S3_BUCKETNAME_KEY = "s3.bucketname";
   private static final String SNS_SUBJECT = "AWS IP range updated.";
 
-  public void handleRequest(int count, Context context) throws IOException {
+  public void handleRequest(S3Event event, Context context) throws IOException {
+    LambdaLogger logger = context.getLogger();
+    logger.log("handleRequest start. event = " + event.toJson());
     ObjectMapper mapper = new ObjectMapper();
     JsonObject json = mapper.readValue(new URL(IP_RANGE_URL), JsonObject.class);
 
@@ -41,7 +45,7 @@ public class RangeCheckHandler {
     s3.setEndpoint(props.getProperty("s3.endpoint"));
 
     GetObjectRequest request = new GetObjectRequest(props.getProperty(S3_BUCKETNAME_KEY), CHECKED_FILE_NAME);
-    try{
+    try {
       S3Object beforeObject = s3.getObject(request);
       InputStream is = beforeObject.getObjectContent();
       JsonObject beforeJson = mapper.readValue(is, JsonObject.class);
@@ -51,11 +55,13 @@ public class RangeCheckHandler {
         sns.setRegion(Region.getRegion(Regions.fromName(props.getProperty("sns.region"))));
         PublishRequest publishRequest = new PublishRequest(props.getProperty("sns.topic.arn"), diff.get(), SNS_SUBJECT);
         PublishResult result = sns.publish(publishRequest);
-        System.out.println(result.getMessageId());
+        logger.log("send sns message. messageId = " + result.getMessageId());
       }
-    }catch (AmazonS3Exception e){
+    } catch (AmazonS3Exception e) {
+      logger.log("before checked-ip-ranges.json does not exist.");
     }
     storeCheckedIpRange(json);
+    logger.log("stored checked-ip-ranges.json");
   }
 
   private void storeCheckedIpRange(JsonObject json) {
