@@ -33,7 +33,7 @@ public class RangeCheckHandler {
   private static final String S3_BUCKETNAME_KEY = "s3.bucketname";
   private static final String SNS_SUBJECT = "AWS IP range updated.";
 
-  public void handleRequest(Context context) throws IOException {
+  public String handleRequest(Context context) throws IOException {
     LambdaLogger logger = context.getLogger();
     logger.log("handleRequest start.");
     ObjectMapper mapper = new ObjectMapper();
@@ -61,6 +61,7 @@ public class RangeCheckHandler {
     }
     storeCheckedIpRange(json);
     logger.log("stored checked-ip-ranges.json");
+    return "success";
   }
 
   private void storeCheckedIpRange(JsonObject json) {
