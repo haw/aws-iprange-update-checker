@@ -11,17 +11,17 @@ This is the AWS Lambda Function for checking update of the range of [AWS IP](htt
 Rename src/main/resources/aws.properties.sample to src/main/resources/aws.properties.  
 And setting following values.
 
-* s3.endpoint  
+* **s3.endpoint**  
 Specify S3 endpoint. ex, s3-ap-northeast-1.amazonaws.com  
-* s3.bucketname
+* **s3.bucketname**  
 Specify S3 bucket name. This bucket used to store checked ip-range.json file.  
-* sns.region  
+* **sns.region**  
 Specify SNS region.  
-* sns.topic.arn  
+* **sns.topic.arn**  
 Specify SNS topic arn. If the IP ranges updated, this arn used to notify the diff.  
-* access.key(optional)  
+* **access.key(optional)**  
 Specify the aws access key.  
-* secret.key(optional)
+* **secret.key(optional)**  
 Specify the aws secret key.
 
 If access.key does not specified, use IAM Role.
