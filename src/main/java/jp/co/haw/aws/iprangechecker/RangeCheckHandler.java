@@ -1,7 +1,7 @@
 package jp.co.haw.aws.iprangechecker;
 
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -75,7 +75,7 @@ public class RangeCheckHandler {
     if (credentials.isPresent()) {
       return new AmazonS3Client(credentials.get());
     } else {
-      return new AmazonS3Client(new InstanceProfileCredentialsProvider());
+      return new AmazonS3Client(new EnvironmentVariableCredentialsProvider());
     }
   }
 
@@ -84,7 +84,7 @@ public class RangeCheckHandler {
     if (credentials.isPresent()) {
       return new AmazonSNSClient(credentials.get());
     } else {
-      return new AmazonSNSClient(new InstanceProfileCredentialsProvider());
+      return new AmazonSNSClient(new EnvironmentVariableCredentialsProvider());
     }
   }
 
