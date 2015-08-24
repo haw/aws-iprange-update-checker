@@ -8,7 +8,7 @@ This is the AWS Lambda Function for checking update of the range of [AWS IP](htt
 
 ## Configuration
 
-Rename src/main/resources/aws.properties.sample to src/main/resources/aws.properties.sample.  
+Rename src/main/resources/aws.properties.sample to src/main/resources/aws.properties.  
 And setting following values.
 
 * s3.endpoint  
