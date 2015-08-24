@@ -1,5 +1,5 @@
 # aws-iprange-update-checker
-This is the AWS Lambda Function for checking update of the range of AWS IP.
+This is the AWS Lambda Function for checking update of the range of [AWS IP](https://ip-ranges.amazonaws.com/ip-ranges.json).
 
 ## Requirements
 
