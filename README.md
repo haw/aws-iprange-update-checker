@@ -1,4 +1,4 @@
-# aws-iprange-update-checker
+# aws-iprange-update-checker [![Build Status](https://travis-ci.org/haw-itn/aws-iprange-update-checker.svg?branch=master)](https://travis-ci.org/haw-itn/aws-iprange-update-checker) [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 This is the AWS Lambda Function for checking update of the range of [AWS IP](https://ip-ranges.amazonaws.com/ip-ranges.json).
 
 ## Requirements
