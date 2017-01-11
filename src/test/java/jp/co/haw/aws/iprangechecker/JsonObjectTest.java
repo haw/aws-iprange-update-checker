@@ -28,6 +28,17 @@ public class JsonObjectTest {
         "+ \"ip_prefix\": \"54.192.0.0/16\", \"region\": \"GLOBAL\", \"service\": \"CLOUDFRONT\"\n"
       ));
     assertFalse(diff2.isPresent());
+
+    // IPv6 support
+    JsonObject json3 = mapper.readValue(getClass().getResourceAsStream("/ip-ranges3.json"), JsonObject.class);
+    JsonObject json4 = mapper.readValue(getClass().getResourceAsStream("/ip-ranges4.json"), JsonObject.class);
+    Optional<String> diff3 = json3.getDiff(json4);
+    assertThat(diff3.get(),
+      is(
+        "+ \"ip_prefix\": \"13.32.0.0/15\", \"region\": \"GLOBAL\", \"service\": \"AMAZON\"\n"+
+          "- \"ipv6_prefix\": \"2a05:d018:7ff:f800::/53\", \"region\": \"eu-west-1\", \"service\": \"ROUTE53_HEALTHCHECKS\"\n" +
+          "+ \"ipv6_prefix\": \"2a05:d018:fff:f800::/53\", \"region\": \"eu-west-1\", \"service\": \"ROUTE53_HEALTHCHECKS\"\n"
+      ));
   }
 
 }
